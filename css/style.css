@@ -184,6 +184,7 @@ button {
 }
 
 .major {
+  width: 30%;
   background-color: var(--color-primary-variant);
   padding: 2rem 1rem;
   color: var(--color-text);
