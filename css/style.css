@@ -270,7 +270,7 @@ button {
 #home {
   background-color: var(--color-primary);
   color: var(--color-text);
-  padding: 7rem 1rem 5rem;
+  padding: 9rem 1rem 5rem;
   text-align: center;
 }
 
@@ -699,83 +699,242 @@ button {
   color: var(--color-accent);
 }
 
-@media screen and (max-width: 768px) {
+/* 화면 너비가 1024px 이상일 때 (데스크톱) */
+/* 기본 스타일(위쪽에 정의된 것들)이 그대로 적용됩니다. */
+
+/* 화면 너비가 768px 이상 1023px 이하일 때 (태블릿) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  /* 섹션 여백/글자 크기 조금 줄이기 */
   .section {
-    padding: 3rem 2rem;
+    padding: 3rem 2.5rem;
   }
-
   .title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
-
   .description {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
+  /* 헤더: 가로 배치 유지 + 높이/여백 축소 */
   .header {
-    flex-direction: column;
-    align-items: start;
+    padding: 0.8rem 1.5rem;
   }
 
-  .header__menu {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem 4rem;
-    gap: 1rem;
+  /* 로고 영역 조금 작게 */
+  .header__logo__img {
+    width: 32px;
+    height: 32px;
+  }
+  .header__logo__title {
+    font-size: 1.6rem;
   }
 
+  /* 가운데(토글 + 시계) 크기 축소 */
+  .theme-toggle {
+    font-size: 0.8rem;
+    gap: 0.4rem;
+  }
+  .toggle-switch {
+    transform: scale(0.9);
+  }
+  .header__clock {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.5rem;
+  }
+  #clock,
+  #greeting {
+    font-size: 0.8rem;
+  }
+
+  /* 메뉴: 가로 배치 유지, 자동 줄바꿈 */
   .header__nav {
-    width: 100%;
+    flex: 1;
+  }
+  .header__menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    gap: 0.4rem;
+  }
+  .header__menu__item {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.9rem;
   }
 
-  #home {
-    padding-bottom: 3rem;
-  }
-
-  .home__title {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
+  /* about/skills/경력 카드 등은 모바일과 공통 느낌으로 조금 줄이기 */
   .majors {
     flex-direction: column;
     align-items: center;
   }
-
   .major {
     width: 80%;
     max-width: 25rem;
   }
-
-  .job {
-    flex-direction: column;
-    justify-content: center;
+  .jobs {
+    gap: 1rem;
   }
 
   .skills {
     grid-template-columns: 1fr;
+    margin: 2rem 1.5rem;
   }
 
   .categories {
-    flex-direction: column;
+    gap: 0.6rem;
   }
-
   .category {
-    width: 100%;
-  }
-
-  .progects {
-    grid-template-columns: repeat(2, 1fr);
+    padding: 0.4rem 2.4rem;
   }
 
   .license {
     flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* 화면 너비가 767px 이하일 때 (모바일) */
+@media screen and (max-width: 767px) {
+  /* 섹션 여백/글자 크기 더 줄이기 */
+  .section {
+    padding: 3rem 1.5rem;
+  }
+  .title {
+    font-size: 1.9rem;
+  }
+  .description {
+    font-size: 1rem;
   }
 
-  .license:nth-child(even) .license_img {
-    order: 0;
+  /* 헤더: 가로 배치 유지(PC처럼) + 전체를 조금 compact하게 */
+  /* 헤더: 위쪽은 로고+토글/시계, 그 아래에 메뉴가 오도록 래핑 */
+  .header {
+    padding: 0.7rem 1rem;
+    flex-wrap: wrap; /* 줄바꿈 허용 */
+    align-items: flex-start;
   }
 
+  /* 로고는 왼쪽, 가운데 영역은 오른쪽으로 밀기 */
+  .header__logo {
+    order: 1;
+  }
+  .header__center {
+    order: 2;
+    margin-left: auto; /* 오른쪽 끝으로 붙이기 */
+  }
+
+  /* 메뉴는 두 번째 줄에 전체 폭으로 */
+  .header__nav {
+    order: 3;
+    flex-basis: 100%; /* 전체 너비 차지 */
+    margin-top: 0.5rem;
+  }
+
+  /* 왼쪽: 로고 + 이름 사이즈 축소 */
+  .header__logo__img {
+    width: 30px;
+    height: 30px;
+  }
+  .header__logo__title {
+    font-size: 1.4rem;
+  }
+
+  /* 오른쪽: 토글 + 시계 영역 */
+  .header__center {
+    align-items: flex-end; /* 오른쪽 정렬 느낌 */
+    gap: 0.25rem;
+  }
+  .theme-toggle {
+    font-size: 0.75rem;
+    gap: 0.3rem;
+  }
+  .toggle-switch {
+    transform: scale(0.85);
+  }
+  .header__clock {
+    font-size: 0.75rem;
+    padding: 0.12rem 0.45rem;
+  }
+  #clock,
+  #greeting {
+    font-size: 0.75rem;
+  }
+
+  /* 네비게이션 메뉴: 가로 6개 배치, 자동 줄바꿈, 사이즈 축소 */
+  .header__nav {
+    flex: 1;
+  }
+  .header__menu {
+    width: 100%;
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 가로로 배치하다 공간 없으면 자동 줄바꿈 */
+    gap: 0.25rem 0.4rem; /* 세로/가로 간격 */
+    text-align: center;
+  }
+  .header__menu__item {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  /* Home 섹션 타이틀/이미지도 모바일에 맞게 축소 */
+  #home {
+    padding-top: 8.5rem;
+    padding-bottom: 3rem;
+  }
+  .home__avatar {
+    width: 200px;
+    height: 200px;
+  }
+  .home__title {
+    font-size: 2.1rem;
+  }
+  .home__description {
+    font-size: 1.1rem;
+  }
+
+  /* about 카드/skills/라이선스 등 모바일용 레이아웃 */
+  .majors {
+    flex-direction: column;
+    align-items: center;
+  }
+  .major {
+    width: 90%;
+    max-width: 23rem;
+  }
+
+  .job {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .skills {
+    grid-template-columns: 1fr;
+    margin: 1.5rem 0.5rem;
+  }
+
+  .categories {
+    flex-direction: column;
+    align-items: stretch;
+    margin: 2rem 0 1rem;
+  }
+  .category {
+    width: 100%;
+    padding: 0.45rem 0;
+  }
+
+  .licenses {
+    margin: 2rem 0;
+  }
+  .license {
+    flex-direction: column;
+    align-items: center;
+  }
+  .license__img {
+    margin-bottom: 0.8rem;
+  }
+
+  /* 위로가기 버튼도 모바일에서 조금 작게 */
   .arrow-up {
     font-size: 2rem;
     width: 3rem;
