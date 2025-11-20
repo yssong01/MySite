@@ -136,7 +136,7 @@ button {
   z-index: 10;
   transition: background-color 250ms ease, box-shadow 250ms ease,
     padding 250ms ease;
-  column-gap: 1.2rem;          /* ★ 자식들 사이 기본 간격 */
+  column-gap: 1.2rem; /* ★ 자식들 사이 기본 간격 */
 }
 
 /* 가운데 영역: 토글 + 시계 */
@@ -145,9 +145,8 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
-  min-width: 180px;            /* ★ 너무 좁아지지 않게 최소 너비 */
+  min-width: 180px; /* ★ 너무 좁아지지 않게 최소 너비 */
 }
-
 
 .theme-toggle {
   display: flex;
@@ -216,7 +215,7 @@ button {
 }
 
 #clock {
-  font-family: inherit;      /* ★ 전체와 동일한 폰트 사용 */
+  font-family: inherit; /* ★ 전체와 동일한 폰트 사용 */
   letter-spacing: 1px;
   font-size: 0.9rem; /* greeting과 동일한 크기 */
   font-weight: 700; /* 더 굵게 */
@@ -231,12 +230,12 @@ button {
   background-color: rgba(0, 0, 0, 0.25);
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  line-height: 1;            /* ★ 추가 */
+  line-height: 1; /* ★ 추가 */
 }
 
 #clock,
 #greeting {
-  line-height: 1;            /* ★ 같은 기준선 사용 */
+  line-height: 1; /* ★ 같은 기준선 사용 */
   display: inline-block;
 }
 
@@ -858,9 +857,9 @@ button {
     order: 1;
   }
   .header__center {
-    align-items: center;   /* 중앙 정렬 유지 */
+    align-items: center; /* 중앙 정렬 유지 */
     gap: 0.25rem;
-    min-width: 160px;      /* ★ 모바일용 최소 너비 */
+    min-width: 160px; /* ★ 모바일용 최소 너비 */
   }
 
   /* 메뉴는 두 번째 줄에 전체 폭으로 */
@@ -920,7 +919,7 @@ button {
 
   /* Home 섹션 타이틀/이미지도 모바일에 맞게 축소 */
   #home {
-    padding-top: 8.5rem;
+    padding-top: 7.5rem;
     padding-bottom: 3rem;
   }
   .home__avatar {
