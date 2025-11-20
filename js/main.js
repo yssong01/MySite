@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const arrowUp = document.querySelector(".arrow-up");
   const menuItems = document.querySelectorAll(".header__menu__item");
   const sections = [];
+  const contactSection = document.querySelector("#contact"); // ★ 추가
 
   // 메뉴가 가리키는 섹션들을 배열에 저장
   menuItems.forEach((item) => {
@@ -127,10 +128,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const headerHeight = header.offsetHeight;
     let currentId = "home";
 
-    // 화면이 거의 맨 아래에 도달했는지 체크
-    const nearBottom =
-      window.innerHeight + scrollY >= document.body.offsetHeight - 10;
-
     sections.forEach((section) => {
       const sectionTop = section.offsetTop - headerHeight - 20;
       if (scrollY >= sectionTop) {
@@ -138,9 +135,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // 맨 아래 근처이면 강제로 contact 활성화
-    if (nearBottom) {
-      currentId = "contact";
+    // ★ contact 섹션이 화면 상단을 지나면 무조건 contact 활성화
+    if (contactSection) {
+      const contactTop = contactSection.offsetTop - headerHeight - 20;
+      if (scrollY >= contactTop) {
+        currentId = "contact";
+      }
     }
 
     menuItems.forEach((item) => {
@@ -269,24 +269,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
+    // const seconds = now.getSeconds();
 
     const h = String(hours).padStart(2, "0");
     const m = String(minutes).padStart(2, "0");
-    const s = String(seconds).padStart(2, "0");
+    // const s = String(seconds).padStart(2, "0");
 
     if (clockEl) {
-      clockEl.textContent = `${h}:${m}:${s}`;
+      // clockEl.textContent = `${h}:${m}:${s}`;
+      clockEl.textContent = `${h}:${m}`; // ★ HH:MM 만 표시
     }
 
     let greeting = "안녕하세요";
 
-    if (hours >= 5 && hours < 12) {
+    if (hours >= 6 && hours < 12) {
       greeting = "좋은 아침입니다";
     } else if (hours >= 12 && hours < 18) {
       greeting = "좋은 오후입니다";
     } else {
-      greeting = "좋은 저녁입니다";
+      greeting = "좋은 밤입니다";
     }
 
     if (greetingEl) {

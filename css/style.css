@@ -136,6 +136,7 @@ button {
   z-index: 10;
   transition: background-color 250ms ease, box-shadow 250ms ease,
     padding 250ms ease;
+  column-gap: 1.2rem;          /* ★ 자식들 사이 기본 간격 */
 }
 
 /* 가운데 영역: 토글 + 시계 */
@@ -144,7 +145,9 @@ button {
   flex-direction: column;
   align-items: center;
   gap: 0.3rem;
+  min-width: 180px;            /* ★ 너무 좁아지지 않게 최소 너비 */
 }
+
 
 .theme-toggle {
   display: flex;
@@ -213,16 +216,28 @@ button {
 }
 
 #clock {
-  font-family: "Digital", monospace;
+  font-family: inherit;      /* ★ 전체와 동일한 폰트 사용 */
   letter-spacing: 1px;
   font-size: 0.9rem; /* greeting과 동일한 크기 */
   font-weight: 700; /* 더 굵게 */
 }
 
+/* ★ 둘 다 세로 정렬을 맞추기 위한 line-height */
+.header__clock {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  line-height: 1;            /* ★ 추가 */
+}
+
+#clock,
 #greeting {
-  opacity: 0.9;
-  font-size: 0.9rem; /* ← 원하는 크기로 설정 */
-  font-weight: 600; /* ← 필요하면 굵기 추가 가능 */
+  line-height: 1;            /* ★ 같은 기준선 사용 */
+  display: inline-block;
 }
 
 .header__logo {
@@ -239,7 +254,7 @@ button {
 }
 
 .header__logo__title {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 .header__menu {
@@ -751,7 +766,7 @@ button {
     height: 32px;
   }
   .header__logo__title {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
   }
 
   /* 가운데(토글 + 시계) 크기 축소 */
@@ -843,8 +858,9 @@ button {
     order: 1;
   }
   .header__center {
-    order: 2;
-    margin-left: auto; /* 오른쪽 끝으로 붙이기 */
+    align-items: center;   /* 중앙 정렬 유지 */
+    gap: 0.25rem;
+    min-width: 160px;      /* ★ 모바일용 최소 너비 */
   }
 
   /* 메뉴는 두 번째 줄에 전체 폭으로 */
@@ -860,12 +876,12 @@ button {
     height: 30px;
   }
   .header__logo__title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   /* 오른쪽: 토글 + 시계 영역 */
   .header__center {
-    align-items: flex-end; /* 오른쪽 정렬 느낌 */
+    align-items: center; /* flex-end; /* 오른쪽 정렬 느낌 */
     gap: 0.25rem;
   }
   .theme-toggle {
@@ -894,12 +910,12 @@ button {
     display: flex;
     justify-content: center;
     flex-wrap: wrap; /* 가로로 배치하다 공간 없으면 자동 줄바꿈 */
-    gap: 0.25rem 0.4rem; /* 세로/가로 간격 */
+    gap: 0.3rem 0.25rem; /* 세로/가로 간격 */
     text-align: center;
   }
   .header__menu__item {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.78rem;
   }
 
   /* Home 섹션 타이틀/이미지도 모바일에 맞게 축소 */
