@@ -22,6 +22,33 @@
   font-display: swap;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: GMarketSans;
+  margin: 0;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+/* 섹션 등장 애니메이션 기본 상태 */
+.section {
+  padding: 4rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+/* 화면에 들어오면 이 클래스가 JS에서 붙음 */
+.section.section--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Global */
 :root {
   --color-primary: var(--color-black);
@@ -85,7 +112,7 @@ button {
 }
 
 /* header */
-.header {
+/* .header {
   background-color: var(--color-primary);
   position: fixed;
   top: 0;
@@ -95,6 +122,107 @@ button {
   justify-content: space-between;
   align-items: center;
   z-index: 10;
+} */
+
+.header {
+  background-color: var(--color-primary);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  transition: background-color 250ms ease, box-shadow 250ms ease,
+    padding 250ms ease;
+}
+
+/* 가운데 영역: 토글 + 시계 */
+.header__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.theme-toggle__icon {
+  font-size: 1.2rem;
+}
+
+/* 슬라이드 토글 스위치 */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 22px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch .slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #555;
+  border-radius: 999px;
+  transition: background-color 0.3s;
+}
+
+.toggle-switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: transform 0.3s;
+}
+
+/* 체크되었을 때(라이트 모드) */
+.toggle-switch input:checked + .slider {
+  background-color: #ffc857;
+}
+
+.toggle-switch input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+/* 시계 + 인사 영역 */
+.header__clock {
+  display: flex;
+  align-items: center; /* ★ 이 줄 추가 */
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  background-color: rgba(0, 0, 0, 0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+#clock {
+  font-family: "Digital", monospace;
+  letter-spacing: 1px;
+  font-size: 0.9rem; /* greeting과 동일한 크기 */
+  font-weight: 700; /* 더 굵게 */
+}
+
+#greeting {
+  opacity: 0.9;
+  font-size: 0.9rem; /* ← 원하는 크기로 설정 */
+  font-weight: 600; /* ← 필요하면 굵기 추가 가능 */
 }
 
 .header__logo {
@@ -106,6 +234,8 @@ button {
 .header__logo__img {
   width: 36px;
   height: 36px;
+  border-radius: 50%; /* ★ 원형으로 만들기 */
+  object-fit: cover; /* ★ 이미지가 찌그러지지 않게 꽉 채우기 */
 }
 
 .header__logo__title {
@@ -117,8 +247,14 @@ button {
   gap: 4px;
 }
 
+/* .header__menu__item {
+  padding: 8px 16px;
+} */
+
 .header__menu__item {
   padding: 8px 16px;
+  transition: background-color 200ms ease, color 200ms ease, border 200ms ease,
+    transform 150ms ease;
 }
 
 .header__menu__item:hover {
@@ -184,7 +320,7 @@ button {
 }
 
 .major {
-  /* width: 30%; */
+  width: 30%;
   background-color: var(--color-primary-variant);
   padding: 2rem 1rem;
   color: var(--color-text);
@@ -210,29 +346,61 @@ button {
   margin-bottom: 1rem;
 }
 
+/* --------- 경력 카드(회사 로고 + 설명) 공통 스타일 --------- */
 .jobs {
-  text-align: start;
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
+/* 각 회사 카드 */
 .job {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  background-color: var(--color-primary-variant);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
 
+/* 로고 이미지(크기 통일) */
+.job__logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 18px;
+  background-color: #ffffff;
+  padding: 10px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* 텍스트 묶음 */
+.job__texts {
+  text-align: left;
+}
+
+/* 회사 이름 + 직무 */
 .job__name {
-  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: var(--color-text);
 }
 
+/* 근무 기간 */
 .job__period {
-  color: var(--color-primary);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin: 0 0 0.4rem;
 }
 
-.jobs img {
-  width: 300px;
-  margin-right: 100px;
+/* 간단 설명 */
+.job__desc {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  opacity: 0.9;
 }
 
 /* skills */
@@ -322,29 +490,32 @@ button {
   white-space: nowrap;
 }
 
+/* 선택된 카테고리 버튼 스타일 */
 .category--selected {
-  background-color: var(--color-accent);
-  color: var(--color-primary);
+  background-color: var(--color-accent); /* 테두리와 같은 색으로 채우기 */
+  color: var(--color-black); /* 진한 글자색(검정 느낌) */
 }
 
+/* 카테고리 숫자 마커: 선택된 버튼에서만 보이도록 + scale 애니메이션 */
 .category__count {
   opacity: 0;
   position: absolute;
-  top: -20px;
+  top: -12px;
   right: 16px;
   width: 28px;
   height: 28px;
   line-height: 28px;
-  border-radius: 100%;
+  border-radius: 999px;
   background-color: var(--color-accent-variant);
   color: var(--color-text);
-  transition: all 250ms ease-in;
+  transform: scale(0.4); /* 작게 숨겨진 상태 */
+  transition: opacity 250ms ease, transform 250ms ease, top 250ms ease;
 }
 
-.category--selected .category__count,
-.category:hover .category__count {
+.category--selected .category__count {
   opacity: 1;
   top: 0;
+  transform: scale(1); /* 클릭 시 커지면서 등장 */
 }
 
 .projects {
@@ -355,10 +526,44 @@ button {
   gap: 1rem;
 }
 
+/* .project {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+} */
+
+/* .project {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 350ms ease, transform 350ms ease;
+} */
+
 .project {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
+
+  /* 기본은 안 보이게 + 자리를 차지하지 않게 */
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 350ms ease, transform 350ms ease;
+}
+
+/* 필터링 후 보여줄 카드 */
+.project.show {
+  display: block; /* 그리드에 다시 포함 */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 필터링 후 보여줄 카드 */
+.project.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .project__img {
@@ -429,6 +634,19 @@ button {
 }
 
 /* arrow up */
+/* .arrow-up {
+  background-color: var(--color-primary);
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  font-size: 3rem;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 100%;
+  text-align: center;
+  box-shadow: 5px 5px 0px 0px var(--color-accent);
+} */
+
 .arrow-up {
   background-color: var(--color-primary);
   position: fixed;
@@ -440,6 +658,23 @@ button {
   border-radius: 100%;
   text-align: center;
   box-shadow: 5px 5px 0px 0px var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: opacity 250ms ease, transform 250ms ease;
+
+  /* ★ 추가 */
+  z-index: 50; /* header(10)보다 크게 아무 숫자나 주면 됩니다 */
+}
+
+/* 보여줄 때 JS에서 이 클래스를 추가 */
+.arrow-up.arrow-up--show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 
 /* footer */
@@ -508,6 +743,7 @@ button {
   }
 
   .major {
+    width: 80%;
     max-width: 25rem;
   }
 
@@ -525,7 +761,7 @@ button {
   }
 
   .category {
-    width: 100%
+    width: 100%;
   }
 
   .progects {
@@ -547,4 +783,152 @@ button {
     bottom: 1.5rem;
     right: 1.5rem;
   }
+}
+
+/* 모달 공통 스타일 */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none; /* 기본은 숨김 */
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal.modal--show {
+  display: flex;
+}
+
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal__content {
+  position: relative;
+  background-color: var(--color-primary-variant);
+  color: var(--color-text);
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  animation: modal-pop 300ms ease-out;
+}
+
+@keyframes modal-pop {
+  0% {
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+/* 기술이 퍼져 나가는 느낌의 다이어그램 */
+.modal__diagram {
+  position: relative;
+  margin-top: 1.5rem;
+  height: 200px;
+}
+
+/* 공통 노드 스타일 */
+.modal-node {
+  position: absolute;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background-color: var(--color-accent);
+  color: var(--color-black);
+  font-size: 0.85rem;
+
+  /* ★ 테두리 + 그림자 추가 */
+  border: 1px solid rgba(0, 0, 0, 0.15); /* 살짝 어두운 테두리 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* 아래로 떨어지는 느낌의 그림자 */
+
+  opacity: 0;
+  transform: scale(0.2);
+  animation: node-pop 500ms ease-out forwards;
+}
+
+@keyframes node-pop {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 중앙(메인) 노드 */
+.modal-node--center {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation-delay: 0.1s;
+}
+
+/* 주변으로 흩어지는 노드들 */
+.modal-node--1 {
+  left: 10%;
+  top: 20%;
+  animation-delay: 0.2s;
+}
+
+.modal-node--2 {
+  right: 10%;
+  top: 25%;
+  animation-delay: 0.3s;
+}
+
+.modal-node--3 {
+  left: 15%;
+  bottom: 15%;
+  animation-delay: 0.4s;
+}
+
+.modal-node--4 {
+  right: 15%;
+  bottom: 10%;
+  animation-delay: 0.5s;
+}
+
+/* 라이트 모드일 때 색상 재정의 */
+body.light-theme {
+  /* 전체 배경 계열 */
+  --color-primary: #f5f5f5; /* 가장 밝은 배경 */
+  --color-primary-variant: #e3e7f2; /* 섹션 배경(카드 배경 등) */
+
+  /* 글자 색 */
+  --color-text: #050a13; /* 진한 글자 */
+
+  /* 포인트 색 */
+  --color-accent: #4797e7;
+  --color-accent-variant: #ff9900;
+}
+
+/* 라이트 모드에서 홈의 연락처 버튼 텍스트 색 조정 */
+body.light-theme .home__contact {
+  color: #ffffff !important; /* 글자 검정색 */
+  background-color: var(--color-accent); /* 파란 버튼 유지 */
+  border-color: var(--color-accent);
+}
+
+/* 라이트 모드 + hover 시 */
+body.light-theme .home__contact:hover {
+  color: var(--color-black) !important; /* hover 시도 검정 유지 */
+  background-color: transparent;
+  border: 2px solid var(--color-accent);
 }
