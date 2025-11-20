@@ -919,7 +919,7 @@ button {
 
   /* Home 섹션 타이틀/이미지도 모바일에 맞게 축소 */
   #home {
-    padding-top: 7.5rem;
+    padding-top: 9rem;
     padding-bottom: 3rem;
   }
   .home__avatar {
