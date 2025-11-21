@@ -165,7 +165,6 @@ MySite/
 
 **yssong**
 
-- 📧 Email: contact@example.com
 - 💻 GitHub: [https://github.com/yssong01](https://github.com/yssong01)
 - 📝 Tistory: [https://memo1286.tistory.com/](https://memo1286.tistory.com/)
 
